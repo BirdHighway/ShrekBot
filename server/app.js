@@ -50,7 +50,7 @@ app.post('/shrek', function(req, res, next) {
     // if the channel was Colleen's Channel, no boys are allowed!
     if (channel === ROOM_COLLEEN) {
       if (textPosted.toLowerCase().includes('boy') ) {
-        text = 'NO BOYS ALLOWED';
+        botResponse = 'NO BOYS ALLOWED';
       }
     }
 
@@ -60,7 +60,7 @@ app.post('/shrek', function(req, res, next) {
     const data = {
       token: token,
       channel: channel,
-      text: response
+      text: botResponse
     };
     const stringifiedData = qs.stringify(data);
 
