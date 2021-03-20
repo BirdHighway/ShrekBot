@@ -36,8 +36,9 @@ app.post('/shrek', function(req, res, next) {
     res.send(payload.challenge);
   }
 
-  // rooms have weird IDs
-  const ROOM_COLLEEN = 'C01RSPRDZHT';
+  // channels have weird IDs
+  const CHANNEL_COLLEEN = 'C01RSPRDZHT';
+  const CHANNEL_GENERAL = 'C01RNS9J4S2';
 
   // get the text in the user's message
   const textPosted = payload.event.text;
@@ -93,7 +94,7 @@ app.post('/shrek', function(req, res, next) {
     // bot will respond only under certain conditions
 
     // if the channel was Colleen's Channel
-    if (channel === ROOM_COLLEEN) {
+    if (channel === CHANNEL_COLLEEN) {
       // and someone mentions boys
       if (textPosted.toLowerCase().includes('boy') ) {
         data.text = '*NO BOYS ALLOWED*';
