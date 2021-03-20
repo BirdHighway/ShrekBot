@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true}));
 
 
-const fileName = '/home/ubuntu/fe-capstone/server/shrek.txt';
+const fileName = '/home/ubuntu/ShrekBot/shrek-1.txt';
 const script = fs.readFileSync(fileName, {encoding: 'utf8', flag: 'r'});
 const lines = script.split("\n");
 const numLines = lines.length;
@@ -48,7 +48,7 @@ app.post('/shrek', function(req, res, next) {
     var botResponse = '"' + randomLineFromShrek1() + '"';
 
     // if the channel was Colleen's Channel, no boys are allowed!
-    if (channel === colleen) {
+    if (channel === ROOM_COLLEEN) {
       if (textPosted.toLowerCase().includes('boy') ) {
         text = 'NO BOYS ALLOWED';
       }
