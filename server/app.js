@@ -60,7 +60,7 @@ app.post('/shrek', function(req, res, next) {
     const data = {
       token: token,
       channel: channel,
-      text: text
+      text: response
     };
     const stringifiedData = qs.stringify(data);
 
