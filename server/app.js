@@ -48,7 +48,7 @@ app.post('/shrek', function(req, res, next) {
     const channel = payload.event.channel;
 
     // default response? a random line from Shrek 1
-    var botResponse = '"' + randomLineFromShrek1() + '"';
+    var botResponse = '*Line from Shrek 1*\n>"' + randomLineFromShrek1() + '"';
 
     // if the channel was Colleen's Channel, no boys are allowed!
     if (channel === ROOM_COLLEEN) {
