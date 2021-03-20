@@ -103,7 +103,7 @@ app.post('/shrek', function(req, res, next) {
       data.thread_ts = thread;
       return axios.post(destination, qa.stringify(data), { headers })
         .then((result) => { res.sendStatus(200); })
-        .catch((err) => console.log(err); );
+        .catch((err) => { console.log(err); });
     }
 
     if (textPosted.toLowerCase().includes('mongo')) {
@@ -111,7 +111,7 @@ app.post('/shrek', function(req, res, next) {
       data.thread_ts = thread;
       return axios.post(destination, qa.stringify(data), { headers })
         .then((result) => { res.sendStatus(200); })
-        .catch((err) => console.log(err); );
+        .catch((err) => { console.log(err); });
     }
 
   } else {
