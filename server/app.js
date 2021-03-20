@@ -92,7 +92,7 @@ app.post('/shrek', function(req, res, next) {
       // and someone mentions boys
       if (textPosted.toLowerCase().includes('boy') ) {
         data.text = '*NO BOYS ALLOWED*';
-        return axios.post(destination, qa.stringify(data), { headers })
+        return axios.post(destination, qs.stringify(data), { headers })
           .then((result) => { res.sendStatus(200); })
           .catch((err) => { console.log(err); });
       }
@@ -101,7 +101,7 @@ app.post('/shrek', function(req, res, next) {
     if (textPosted.toLowerCase().includes('sdc')) {
       data.text = 'Take a break from SDC and watch Shrek';
       data.thread_ts = thread;
-      return axios.post(destination, qa.stringify(data), { headers })
+      return axios.post(destination, qs.stringify(data), { headers })
         .then((result) => { res.sendStatus(200); })
         .catch((err) => { console.log(err); });
     }
@@ -109,7 +109,7 @@ app.post('/shrek', function(req, res, next) {
     if (textPosted.toLowerCase().includes('mongo')) {
       data.text = 'Mongo? More like bongo if you ask me!';
       data.thread_ts = thread;
-      return axios.post(destination, qa.stringify(data), { headers })
+      return axios.post(destination, qs.stringify(data), { headers })
         .then((result) => { res.sendStatus(200); })
         .catch((err) => { console.log(err); });
     }
