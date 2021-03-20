@@ -39,40 +39,39 @@ app.post('/shrek', function(req, res, next) {
   // rooms have weird IDs
   const ROOM_COLLEEN = 'C01RSPRDZHT';
 
-  // if the bot was mentioned
-  // "app_mention" event
+  // get the text in the user's message
+  const textPosted = payload.event.text;
+  // what is the id of the channel where the event took place?
+  const channel = payload.event.channel;
+
+  // thread
+  const thread = payload.event.ts;
+
+  // the Slack API endpoint
+  const destination = 'https://slack.com/api/chat.postMessage';
+
+  // set the header so we are authorized
+  const headers = {
+    'Authorization': `Bearer ${token}`
+  };
+
+  // defualt response is a random line from Shrek 1
+  const defaultResponse = '*Line from Shrek 1*\n>"' + randomLineFromShrek1() + '"';
+
+  // the data we are sending to Slack
+  const data = {
+    token: token,
+    channel: channel,
+    text: defaultResponse,
+    icon_url: iconUrl
+  };
+
   if (payload.event.type === 'app_mention') {
-    // get the text in the user's message
-    const textPosted = payload.event.text;
-    // what is the id of the channel the bot was mentioned in?
-    const channel = payload.event.channel;
+    // if the bot was mentioned
+    // "app_mention" event
 
-    // default response? a random line from Shrek 1
-    var botResponse = '*Line from Shrek 1*\n>"' + randomLineFromShrek1() + '"';
-
-    // if the channel was Colleen's Channel, no boys are allowed!
-    if (channel === ROOM_COLLEEN) {
-      if (textPosted.toLowerCase().includes('boy') ) {
-        botResponse = 'NO BOYS ALLOWED';
-      }
-    }
-
-    const destination = 'https://slack.com/api/chat.postMessage';
-
-    // the data we are sending to Slack
-    const data = {
-      token: token,
-      channel: channel,
-      text: botResponse,
-      icon_url: iconUrl
-    };
+    // stringify data
     const stringifiedData = qs.stringify(data);
-
-    // set the header so we are authorized
-    const headers = {
-      'Authorization': `Bearer ${token}`
-    };
-
 
     // let it fly!
     axios.post(destination, stringifiedData, { headers: headers })
@@ -81,13 +80,44 @@ app.post('/shrek', function(req, res, next) {
       })
       .catch((err) => {
         // only visible if you're watching on the server terminal
-        console.log('error');
         console.log(err);
       });
-    } else {
-      // if it was not a bot "app_mention" event, just send a 200 back
-      res.sendStatus(200);
+
+  } else if (payload.event.type === 'message') {
+    // someone posted something in a public channel
+    // bot will respond only under certain conditions
+
+    // if the channel was Colleen's Channel
+    if (channel === ROOM_COLLEEN) {
+      // and someone mentions boys
+      if (textPosted.toLowerCase().includes('boy') ) {
+        data.text = '*NO BOYS ALLOWED*';
+        return axios.post(destination, qa.stringify(data), { headers })
+          .then((result) => { res.sendStatus(200); })
+          .catch((err) => { console.log(err); });
+      }
     }
+
+    if (textPosted.toLowerCase().includes('sdc')) {
+      data.text = 'Take a break from SDC and watch Shrek';
+      data.thread_ts = thread;
+      return axios.post(destination, qa.stringify(data), { headers })
+        .then((result) => { res.sendStatus(200); })
+        .catch((err) => console.log(err); );
+    }
+
+    if (textPosted.toLowerCase().includes('mongo')) {
+      data.text = 'Mongo? More like bongo if you ask me!';
+      data.thread_ts = thread;
+      return axios.post(destination, qa.stringify(data), { headers })
+        .then((result) => { res.sendStatus(200); })
+        .catch((err) => console.log(err); );
+    }
+
+  } else {
+    // if it was not a bot "app_mention" event, just send a 200 back
+    res.sendStatus(200);
+  }
 });
 
 app.get('/', function(req, res) {
