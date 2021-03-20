@@ -15,7 +15,8 @@
 
 
 ## An Example of Data Sent to URL After "app_mention" Event
-`
+
+```
 {
   token: '' /* censored */,
   team_id: 'TEAM_ID_HERE',
@@ -36,20 +37,20 @@
   event_time: 1616201941,
   authorizations: [
     {
-      ...
     }
   ],
   is_ext_shared_channel: false,
 }
+```
 
-`
+
 The most important parts here are:
 - event.type
 - event.text (what did the message say?)
 - event.channel (what channel was it in?)
 
 Then we post back what we want our bot to say:
-`
+```
     // API endpoint for bots to post
     const destination = 'https://slack.com/api/chat.postMessage';
 
@@ -71,4 +72,4 @@ Then we post back what we want our bot to say:
       .then((result) => {
         res.sendStatus(200);
       })
-`
+```
