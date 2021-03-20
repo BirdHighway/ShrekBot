@@ -25,6 +25,9 @@ function randomLineFromShrek1() {
 // the "dotenv" package loads all values in .env file into the global variable process.env
 const token = process.env.SLACK_TOKEN;
 
+// the icon to use for the bot
+const iconUrl = 'https://pbs.twimg.com/profile_images/614015829152141312/e0PishrG_400x400.jpg';
+
 app.post('/shrek', function(req, res, next) {
   let payload = req.body;
   // This has to run when you first set it up
@@ -60,7 +63,8 @@ app.post('/shrek', function(req, res, next) {
     const data = {
       token: token,
       channel: channel,
-      text: botResponse
+      text: botResponse,
+      icon_url: iconUrl
     };
     const stringifiedData = qs.stringify(data);
 
