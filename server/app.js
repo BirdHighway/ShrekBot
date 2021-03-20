@@ -66,6 +66,11 @@ app.post('/shrek', function(req, res, next) {
     icon_url: iconUrl
   };
 
+  // avoid ShrekBot replying to himself in an infinite loop (oops!)
+  if (payload.event.username === 'ShrekBot') {
+    return res.sendStatus(200);
+  }
+
   if (payload.event.type === 'app_mention') {
     // if the bot was mentioned
     // "app_mention" event
