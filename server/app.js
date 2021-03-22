@@ -4,6 +4,8 @@ const axios = require('axios');
 const qs = require('qs');
 const fs = require('fs');
 const app = express();
+const MessageHandler = require('./MessageHandler.js');
+const postMessage = require('./post-message.js');
 
 // load environment variable from .env
 require('dotenv').config();
@@ -36,29 +38,9 @@ app.post('/shrek', function(req, res, next) {
     res.send(payload.challenge);
   }
 
-  // channels have weird IDs
-  const CHANNEL_COLLEEN = 'C01RSPRDZHT';
-  const CHANNEL_GENERAL = 'C01RNS9J4S2';
-
-  // get the text in the user's message
-  const textPosted = payload.event.text;
-  // what is the id of the channel where the event took place?
-  const channel = payload.event.channel;
-
-  // thread
-  const thread = payload.event.ts;
-
-  // the Slack API endpoint
-  const destination = 'https://slack.com/api/chat.postMessage';
-
-  // set the header so we are authorized
-  const headers = {
-    'Authorization': `Bearer ${token}`
-  };
-
   // defualt response is a random line from Shrek 1
   const defaultResponse = '*Line from Shrek 1*\n>"' + randomLineFromShrek1() + '"';
-
+  const channel = payload.channel;
   // the data we are sending to Slack
   const data = {
     token: token,
@@ -75,55 +57,23 @@ app.post('/shrek', function(req, res, next) {
   if (payload.event.type === 'app_mention') {
     // if the bot was mentioned
     // "app_mention" event
+    return sendResponse(data, headers);
+  }
 
-    // stringify data
-    const stringifiedData = qs.stringify(data);
-
-    // let it fly!
-    axios.post(destination, stringifiedData, { headers: headers })
-      .then((result) => {
-        res.sendStatus(200);
-      })
-      .catch((err) => {
-        // only visible if you're watching on the server terminal
-        console.log(err);
-      });
-
-  } else if (payload.event.type === 'message') {
+  if (payload.event.type === 'message') {
     // someone posted something in a public channel
     // bot will respond only under certain conditions
 
-    // if the channel was Colleen's Channel
-    if (channel === CHANNEL_COLLEEN) {
-      // and someone mentions boys
-      if (textPosted.toLowerCase().includes('boy') ) {
-        data.text = '*NO BOYS ALLOWED*';
-        return axios.post(destination, qs.stringify(data), { headers })
-          .then((result) => { res.sendStatus(200); })
-          .catch((err) => { console.log(err); });
-      }
+    // view MessageHandler.js to see program logic
+    const messageHandler = new MessageHandler(payload);
+    if (!messageHandler.handleMessage()) {
+      return res.sendStatus(200);
     }
-
-    if (textPosted.toLowerCase().includes('sdc')) {
-      data.text = 'Take a break from SDC and watch Shrek';
-      data.thread_ts = thread;
-      return axios.post(destination, qs.stringify(data), { headers })
-        .then((result) => { res.sendStatus(200); })
-        .catch((err) => { console.log(err); });
-    }
-
-    if (textPosted.toLowerCase().includes('mongo')) {
-      data.text = 'Mongo? More like bongo if you ask me!';
-      data.thread_ts = thread;
-      return axios.post(destination, qs.stringify(data), { headers })
-        .then((result) => { res.sendStatus(200); })
-        .catch((err) => { console.log(err); });
-    }
-
-  } else {
-    // if it was not a bot "app_mention" event, just send a 200 back
-    res.sendStatus(200);
   }
+
+  // if it was not a bot "app_mention" event, just send a 200 back
+  res.sendStatus(200);
+
 });
 
 app.get('/', function(req, res) {
