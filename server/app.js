@@ -65,7 +65,7 @@ app.post('/shrek', function(req, res, next) {
     // bot will respond only under certain conditions
 
     // view MessageHandler.js to see program logic
-    const messageHandler = new MessageHandler(payload);
+    const messageHandler = new MessageHandler(payload.event);
     if (!messageHandler.handleMessage()) {
       return res.sendStatus(200);
     }

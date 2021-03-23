@@ -5,6 +5,7 @@ const BASIC_DATA = require('./data/basics.js');
 class MessageHandler {
 
   constructor(event) {
+    console.log(CHANNELS);
     this.type = 'message';
     this.channel = CHANNELS.find(c => c.id === event.channel);
     this.text = event.text;
