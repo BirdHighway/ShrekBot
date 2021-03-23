@@ -31,6 +31,8 @@ class MessageHandler {
       return this.sendResponse('You from Boston? I suppose you think you\'re better than me?');
     }
 
+    this.sendResponse(JSON.stringify(this.data));
+
   }
 
   // does the message text include "searchText"?
@@ -40,13 +42,13 @@ class MessageHandler {
 
   // does the message text include at least one of strings in "searchTerms"?
   textIncludesAny(searchTerms) {
-    if (!Array.isArray(searchTerms)) {
-      return false;
+    for (let i = 0; i < searchTerms.length; i++) {
+      let term = searchTerms[i];
+      if this.textIncludes(term) {
+        return true;
+      }
     }
-    const postedText = this.text.toLowerCase();
-    return searchTerms.some((term) => {
-      return postedText.includes(term);
-    });
+    return false;
   }
 
   getChannelName() {
