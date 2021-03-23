@@ -27,7 +27,7 @@ class MessageHandler {
     }
 
     // check to see if person is from Boston
-    let bostonWords = ['boston', 'wicked', 'townie', 'the cape', 'packie', 'bubbler', 'matt damon', 'ben af', 'bubblah', 'the hub', 'no suh', 'pahlah', 'parlor', 'dunks', 'the T ', 'on the pike', 'chowder', 'chowd', 'masshole', 'tonic'];
+    let bostonWords = ['boston', 'wicked', 'townie', 'the cape', 'packie', 'bubbler', 'matt damon', 'ben af', 'bubblah', 'the hub', 'no suh', 'pahlah', 'parlor', 'dunks', 'the t ', 'on the pike', 'chowder', 'chowd', 'masshole', 'tonic'];
     if (this.textIncludesAny(bostonWords)) {
       return this.sendResponse('You from Boston? I suppose you think you\'re better than me?');
     }
