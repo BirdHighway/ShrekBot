@@ -43,8 +43,9 @@ class MessageHandler {
     if (!Array.isArray(searchTerms)) {
       return false;
     }
+    const postedText = this.text.toLowerCase();
     return searchTerms.some((term) => {
-      return this.text.toLowerCase().includes(term);
+      return postedText.includes(term);
     });
   }
 
