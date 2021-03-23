@@ -53,6 +53,8 @@ class MessageHandler {
   }
 
   sendResponse(responseText) {
+    console.log('trying to send response');
+    console.log(responseText);
     this.data.text = responseText;
     postMessage(this.data);
     return true;
