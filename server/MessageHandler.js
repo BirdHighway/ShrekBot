@@ -20,6 +20,7 @@ class MessageHandler {
   }
 
   handleMessage() {
+    console.log('handleMessage()');
     // first things first
     if (this.getChannelName() === 'colleens-channel-no-boys') {
       return this.sendResponse('NO BOYS ALLOWED');

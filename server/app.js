@@ -50,7 +50,7 @@ app.post('/shrek', function(req, res, next) {
   };
 
   // avoid ShrekBot replying to himself in an infinite loop (oops!)
-  if (payload.event.username === 'ShrekBot') {
+  if (payload.event.hasOwnProperty('username') && payload.event.username === 'ShrekBot') {
     return res.sendStatus(200);
   }
 
