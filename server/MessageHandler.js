@@ -4,7 +4,7 @@ const BASIC_DATA = require('./data/basics.js');
 
 class MessageHandler {
 
-  constructor(event, res) {
+  constructor(event) {
     this.type = 'message';
     this.channel = CHANNELS.find(c => c.id === event.channel);
     this.text = event.text;
@@ -15,7 +15,6 @@ class MessageHandler {
       text: '',
       icon_url: BASIC_DATA.botIconUrl
     }
-    this.res = res;
     console.log(this.data);
   }
 
@@ -32,7 +31,6 @@ class MessageHandler {
       return this.sendResponse('You from Boston? I suppose you think you\'re better than me?');
     }
 
-    this.res.sendStatus(200);
   }
 
   // does the message text include "searchText"?
