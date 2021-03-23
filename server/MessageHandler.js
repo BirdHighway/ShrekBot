@@ -1,5 +1,5 @@
 const CHANNELS = require('./data/channels.js');
-const postMessage = require('./postMessage.js');
+const postMessage = require('./post-Message.js');
 const BASIC_DATA = require('./data/basics.js');
 
 class MessageHandler {
