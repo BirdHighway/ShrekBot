@@ -3,4 +3,4 @@ const BASIC_DATA = {
   botIconUrl: 'https://pbs.twimg.com/profile_images/614015829152141312/e0PishrG_400x400.jpg'
 };
 
-export default BASIC_DATA;
+module.exports = BASIC_DATA;

@@ -21,4 +21,4 @@ const CHANNELS = [
   }
 ];
 
-export default CHANNELS;
+module.exports = CHANNELS;

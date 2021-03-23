@@ -1,6 +1,6 @@
-import CHANNELS from './data/channels.js';
-import postMessage from './postMessage.js';
-import BASIC_DATA from './data/basics.js';
+const CHANNELS = require('./data/channels.js');
+const postMessage = require('./postMessage.js');
+const BASIC_DATA = require('./data/basics.js');
 
 class MessageHandler {
 
@@ -58,4 +58,4 @@ class MessageHandler {
 
 }
 
-export defualt MessageHandler;
+module.exports = MessageHandler;

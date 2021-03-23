@@ -18,4 +18,4 @@ const postMessage = function(data) {
     });
 };
 
-export default postMessage;
+module.exports = postMessage;
