@@ -65,10 +65,8 @@ app.post('/shrek', function(req, res, next) {
     // bot will respond only under certain conditions
 
     // view MessageHandler.js to see program logic
-    const messageHandler = new MessageHandler(payload.event);
-    if (!messageHandler.handleMessage()) {
-      return res.sendStatus(200);
-    }
+    const messageHandler = new MessageHandler(payload.event, res);
+    return messageHandler.handleMessage();
   }
 
   // if it was not a bot "app_mention" event, just send a 200 back
