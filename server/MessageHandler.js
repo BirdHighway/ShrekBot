@@ -43,7 +43,7 @@ class MessageHandler {
   textIncludesAny(searchTerms) {
     for (let i = 0; i < searchTerms.length; i++) {
       let term = searchTerms[i];
-      if this.textIncludes(term) {
+      if (this.textIncludes(term)) {
         return true;
       }
     }
