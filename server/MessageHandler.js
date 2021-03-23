@@ -5,7 +5,6 @@ const BASIC_DATA = require('./data/basics.js');
 class MessageHandler {
 
   constructor(event) {
-    console.log(CHANNELS);
     this.type = 'message';
     this.channel = CHANNELS.find(c => c.id === event.channel);
     this.text = event.text;
@@ -16,6 +15,8 @@ class MessageHandler {
       text: '',
       icon_url: BASIC_DATA.botIconUrl
     }
+    console.log(this);
+    console.log(this.data);
   }
 
   handleMessage() {
@@ -42,7 +43,7 @@ class MessageHandler {
     if (!Array.isArray(searchTerms)) {
       return false;
     }
-    return searchTerms.some(term => {
+    return searchTerms.some((term) => {
       return this.text.toLowerCase().includes(term);
     });
   }
