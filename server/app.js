@@ -35,8 +35,10 @@ app.post('/shrek', function(req, res, next) {
   // This has to run when you first set it up
   // Slack sends a message to the URL you provide to make sure you control it
   if (payload.type === 'url_verification') {
-    res.send(payload.challenge);
+    return res.send(payload.challenge);
   }
+
+  res.sendStatus(200);
 
   // defualt response is a random line from Shrek 1
   const defaultResponse = '*Line from Shrek 1*\n>"' + randomLineFromShrek1() + '"';
@@ -51,7 +53,7 @@ app.post('/shrek', function(req, res, next) {
 
   // avoid ShrekBot replying to himself in an infinite loop (oops!)
   if (payload.event.hasOwnProperty('username') && payload.event.username === 'ShrekBot') {
-    return res.sendStatus(200);
+    return;
   }
 
   if (payload.event.type === 'app_mention') {
@@ -68,9 +70,6 @@ app.post('/shrek', function(req, res, next) {
     const messageHandler = new MessageHandler(payload.event);
     return messageHandler.handleMessage();
   }
-
-  // if it was not a bot "app_mention" event, just send a 200 back
-  res.sendStatus(200);
 
 });
 
