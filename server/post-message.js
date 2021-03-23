@@ -11,7 +11,8 @@ const postMessage = function(data) {
   };
   axios.post(destination, qs.stringify(data), { headers })
     .then((result) => {
-      res.sendStatus(200);
+      // res.sendStatus(200);
+      console.log('Message send successfully');
     })
     .catch((err) => {
       console.log(err);
