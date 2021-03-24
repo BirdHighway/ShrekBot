@@ -6,6 +6,7 @@ const fs = require('fs');
 const app = express();
 const MessageHandler = require('./MessageHandler.js');
 const postMessage = require('./post-message.js');
+const wishPhilHappyBirthday = require('./phil.js');
 
 // load environment variable from .env
 require('dotenv').config();
@@ -24,6 +25,8 @@ function randomLineFromShrek1() {
   return lines[i];
 }
 
+wishPhilHappyBirthday();
+
 // the "dotenv" package loads all values in .env file into the global variable process.env
 const token = process.env.SLACK_TOKEN;
 
@@ -38,7 +41,7 @@ app.post('/shrek', function(req, res, next) {
     return res.send(payload.challenge);
   }
 
-  res.sendStatus(200);
+  return res.sendStatus(200);
 
   // defualt response is a random line from Shrek 1
   const defaultResponse = '*Line from Shrek 1*\n>"' + randomLineFromShrek1() + '"';
