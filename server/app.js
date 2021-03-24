@@ -25,7 +25,9 @@ function randomLineFromShrek1() {
   return lines[i];
 }
 
-wishPhilHappyBirthday();
+setTimeout(() => {
+  wishPhilHappyBirthday();
+}, 5000);
 
 // the "dotenv" package loads all values in .env file into the global variable process.env
 const token = process.env.SLACK_TOKEN;

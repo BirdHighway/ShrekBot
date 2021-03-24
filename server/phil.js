@@ -12,8 +12,18 @@ const data = {
   text: ''
 }
 
+const script = fs.readFileSync(fileName, {encoding: 'utf8', flag: 'r'});
+const lines = script.split("\n");
+const numLines = lines.length;
+
+function randomLineFromShrek1() {
+  let i = Math.floor(Math.random() * numLines);
+  return lines[i];
+}
+
 function getRandomMessage() {
-  return `/giphy [happy birthday] \nHappy Birthday Phil!`;
+  let line = randomLineFromShrek1();
+  return `Happy Birthday Phil!\n${line}`;
 }
 
 function randomLengthOfTime() {
