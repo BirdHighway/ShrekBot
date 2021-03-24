@@ -13,6 +13,7 @@ const data = {
   text: ''
 }
 
+const fileName = '/home/ubuntu/ShrekBot/shrek-1.txt';
 const script = fs.readFileSync(fileName, {encoding: 'utf8', flag: 'r'});
 const lines = script.split("\n");
 const numLines = lines.length;
