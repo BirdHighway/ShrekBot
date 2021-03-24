@@ -1,4 +1,4 @@
-import postMessage = require('./post-message.js');
+postMessage = require('./post-message.js');
 
 // the icon to use for the bot
 const iconUrl = 'https://pbs.twimg.com/profile_images/614015829152141312/e0PishrG_400x400.jpg';
